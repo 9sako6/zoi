@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'zoi'
+
+case ARGV[0]
+when '-l', '--list'
+  puts Zoi.list
+when '-t', '--today'
+  puts Zoi.today_file
+when nil
+  new_file_path = Zoi.create
+  new_file_path.nil? ? nil : (puts new_file_path)
+end
