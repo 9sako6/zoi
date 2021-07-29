@@ -3,6 +3,7 @@
 require 'fileutils'
 require 'find'
 require 'open3'
+require 'pathname'
 require 'thor'
 
 module Zoi
