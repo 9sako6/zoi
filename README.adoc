@@ -1,0 +1,58 @@
+= zoi(1)
+
+== NAME
+
+zoi - Manage snippets
+
+== DESCRIPTION
+
+Manage snippets.
+
+[verse]
+zoi c ruby/foo.rb
+# ~/zoi/ruby/foo.rb is created.
+
+== SYNOPSIS
+
+[verse]
+zoi create <filepath>
+zoi open <filepath>
+zoi list [-d]
+zoi root
+zoi help
+
+== COMMANDS
+
+create::
+  Create a new file under zoi root directory. If the file already exists, the file isn't created. +
+  In all cases, the full path of the file is printed to stdout.
+
+open::
+  Execute `create` command and open the file with the editor specified by `$EDITOR`. For example: `EDITOR=code zoi open foobar.rb`
+
+list::
+  List all files under zoi root directory. +
+  With '-d' option, list all directories under zoi root directory.
+
+root::
+  Print zoi root directory.
+
+help::
+  Print a brief help message.
+
+== INSTALLATION
+
+    gem install zoi
+
+== EXAMPLES
+
+Open today's memo file in VSCode.
+
+[verse]
+code $(date "+%Y%m%d.adoc" | zoi c)
+
+A new file ~/zoi/20210727.adoc is created and is opend in VSCode.
+
+== AUTHOR
+
+https://github.com/9sako6[9sako6]
