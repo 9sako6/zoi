@@ -6,10 +6,10 @@ zoi - Manage snippets
 
 == DESCRIPTION
 
-Manage snippets.
+‘zoi' provides a way to organize snippets. When you create a new file by `create` command, zoi makes the file under ~/zoi. When you execute `open` command, zoi create a new file and open it with your editor. If you want to list all files or all directory in ~/zoi, use `list` command.
 
 [verse]
-zoi c ruby/foo.rb
+zoi create ruby/foo.rb
 # ~/zoi/ruby/foo.rb is created.
 
 == SYNOPSIS
@@ -25,10 +25,12 @@ zoi help
 
 create::
   Create a new file under zoi root directory. If the file already exists, the file isn't created. +
-  In all cases, the full path of the file is printed to stdout.
+  In all cases, the full path of the file is printed to stdout. +
+  For example: `zoi create memo/20210101.md`
 
 open::
-  Execute `create` command and open the file with the editor specified by `$EDITOR`. For example: `EDITOR=code zoi open foobar.rb`
+  Execute `create` command and open the file with the editor specified by `$EDITOR`. To open a file, set `$EDITOR`. +
+  For example: `EDITOR=code zoi open memo/20210101.md`
 
 list::
   List all files under zoi root directory. +
@@ -49,7 +51,7 @@ help::
 Open today's memo file in VSCode.
 
 [verse]
-code $(date "+%Y%m%d.adoc" | zoi c)
+code $(date "+%Y%m%d.adoc" | zoi create)
 
 A new file ~/zoi/20210727.adoc is created and is opend in VSCode.
 
