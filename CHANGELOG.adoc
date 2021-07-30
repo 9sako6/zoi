@@ -1,9 +1,9 @@
-== 0.1.1 (July 7, 2021)
+== 0.1.1 (July 29, 2021)
 
 === Bug Fixes
 * Fix load error of 'pathname' library https://github.com/9sako6/zoi/pull/3[#3]
 
-== 0.1.0 (July 7, 2021)
+== 0.1.0 (July 29, 2021)
 
 === Enhancements
 * Add basic commands https://github.com/9sako6/zoi/pull/2[#2]
