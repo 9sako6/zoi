@@ -48,12 +48,17 @@ help::
 
 == EXAMPLES
 
-Open today's memo file in VSCode.
-
+* Open today's memo file in VSCode.
++
 [verse]
-code $(date "+%Y%m%d.adoc" | zoi create)
-
+date "+%Y%m%d.adoc" | EDITOR=code zoi open
++
 A new file ~/zoi/20210727.adoc is created and is opend in VSCode.
+
+* Change directories
++
+[verse]
+cd $(zoi list -d | fzf)
 
 == AUTHOR
 
