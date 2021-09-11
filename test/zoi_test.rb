@@ -13,7 +13,9 @@ class TestZoi < MiniTest::Unit::TestCase
 
     FileUtils.mkdir_p(@tmp_path)
 
-    Zoi::CLI.any_instance.stubs(:root_path).returns(Pathname(Dir.pwd).join(@tmp_path).join(Zoi::ROOT_DIR_NAME).to_s)
+    @root_path = Pathname(Dir.pwd).join(@tmp_path).join(Zoi::ROOT_DIR_NAME).to_s
+
+    Zoi::CLI.any_instance.stubs(:root_path).returns(@root_path)
 
     $stdout = File.open('/dev/null', 'w')
   end
@@ -52,5 +54,11 @@ class TestZoi < MiniTest::Unit::TestCase
     files_list = File.open(output_path, 'r', &:read).split("\n")
 
     assert_equal file_paths.map { |file_path| "#{Zoi::CLI.new.root_path}/#{file_path}" }.sort, files_list.sort
+  end
+
+  def test_root
+    assert_output("#{@root_path}\n") do
+      Zoi::CLI.start(['root'])
+    end
   end
 end
