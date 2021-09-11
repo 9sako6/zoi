@@ -36,6 +36,15 @@ module Zoi
       puts(Find.find(root_path).select { |path| only_directory ? File.directory?(path) : File.file?(path) })
     end
 
+    desc 'root', 'Print zoi root directory.'
+    def root_command
+      puts root_path
+    end
+
+    # NOTE: Resolve the following error.
+    #       `"root" is a Thor reserved word and cannot be defined as command`
+    map 'root' => 'root_command'
+
     no_tasks do
       def editor
         @editor ||= ENV['EDITOR']
