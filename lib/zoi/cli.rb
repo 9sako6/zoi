@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'date'
 require 'fileutils'
 require 'find'
 require 'open3'
@@ -34,6 +35,17 @@ module Zoi
       only_directory = options['d']
 
       puts(Find.find(root_path).select { |path| only_directory ? File.directory?(path) : File.file?(path) })
+    end
+
+    desc 'memo', "Create today's memo file and open the file with the editor specified by `$EDITOR`."
+    def memo
+      return if editor.nil?
+
+      created_file_path = create_file("#{Date.today}.md")
+
+      puts created_file_path
+
+      open_file(created_file_path)
     end
 
     desc 'root', 'Print zoi root directory.'

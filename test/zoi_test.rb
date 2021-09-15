@@ -5,6 +5,7 @@ require 'pathname'
 require 'minitest/autorun'
 require 'minitest/unit'
 require 'mocha/minitest'
+require 'timecop'
 require_relative '../lib/zoi'
 
 class TestZoi < MiniTest::Unit::TestCase
@@ -54,6 +55,15 @@ class TestZoi < MiniTest::Unit::TestCase
     files_list = File.open(output_path, 'r', &:read).split("\n")
 
     assert_equal file_paths.map { |file_path| "#{Zoi::CLI.new.root_path}/#{file_path}" }.sort, files_list.sort
+  end
+
+  def test_memo
+    Timecop.freeze(Date.parse('2021-09-09')) do
+      ENV['EDITOR'] = ':'
+      Zoi::CLI.start(['memo'])
+
+      assert_equal true, File.exist?('./tmp/zoi/2021-09-09.md')
+    end
   end
 
   def test_root
