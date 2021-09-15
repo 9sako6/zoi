@@ -59,7 +59,7 @@ module Zoi
 
     no_tasks do
       def editor
-        @editor ||= ENV['EDITOR']
+        ENV['EDITOR']
       end
 
       def create_file(file_path)
