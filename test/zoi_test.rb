@@ -19,6 +19,8 @@ class TestZoi < MiniTest::Unit::TestCase
     Zoi::CLI.any_instance.stubs(:root_path).returns(@root_path)
 
     $stdout = File.open('/dev/null', 'w')
+
+    ENV['EDITOR'] = nil
   end
 
   def teardown
@@ -35,6 +37,19 @@ class TestZoi < MiniTest::Unit::TestCase
     Zoi::CLI.start(['create', 'ruby/foo.rb'])
 
     assert_equal true, File.exist?('./tmp/zoi/ruby/foo.rb')
+  end
+
+  def test_open
+    ENV['EDITOR'] = ':'
+    Zoi::CLI.start(['open', 'sample.md'])
+
+    assert_equal true, File.exist?('./tmp/zoi/sample.md')
+  end
+
+  def test_open_without_editor_env
+    Zoi::CLI.start(['open', 'sample.md'])
+
+    assert_equal false, File.exist?('./tmp/zoi/sample.md')
   end
 
   def test_list
