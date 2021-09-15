@@ -1,3 +1,8 @@
+== 0.1.3 (September 15, 2021)
+
+=== Enhancements
+* Add `memo` command https://github.com/9sako6/zoi/pull/11[#11]
+
 == 0.1.2 (September 11, 2021)
 
 === Enhancements
