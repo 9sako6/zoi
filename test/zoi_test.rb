@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'fileutils'
-require 'pathname'
-require 'minitest/autorun'
-require 'minitest/unit'
-require 'mocha/minitest'
-require 'timecop'
-require_relative '../lib/zoi'
+require "fileutils"
+require "pathname"
+require "minitest/autorun"
+require "minitest/unit"
+require "mocha/minitest"
+require "timecop"
+require_relative "../lib/zoi"
 
 class TestZoi < MiniTest::Unit::TestCase
   def setup
-    @tmp_path = Pathname('./tmp')
+    @tmp_path = Pathname("./tmp")
 
     FileUtils.mkdir_p(@tmp_path)
 
@@ -18,9 +18,9 @@ class TestZoi < MiniTest::Unit::TestCase
 
     Zoi::CLI.any_instance.stubs(:root_path).returns(@root_path)
 
-    $stdout = File.open('/dev/null', 'w')
+    $stdout = File.open("/dev/null", "w")
 
-    ENV['EDITOR'] = nil
+    ENV["EDITOR"] = nil
   end
 
   def teardown
@@ -30,60 +30,60 @@ class TestZoi < MiniTest::Unit::TestCase
   end
 
   def test_version
-    assert_equal false, Zoi::VERSION.nil?
+    assert_equal(false, Zoi::VERSION.nil?)
   end
 
   def test_create
-    Zoi::CLI.start(['create', 'ruby/foo.rb'])
+    Zoi::CLI.start(["create", "ruby/foo.rb"])
 
-    assert_equal true, File.exist?('./tmp/zoi/ruby/foo.rb')
+    assert_equal(true, File.exist?("./tmp/zoi/ruby/foo.rb"))
   end
 
   def test_open
-    ENV['EDITOR'] = ':'
-    Zoi::CLI.start(['open', 'sample.md'])
+    ENV["EDITOR"] = ":"
+    Zoi::CLI.start(["open", "sample.md"])
 
-    assert_equal true, File.exist?('./tmp/zoi/sample.md')
+    assert_equal(true, File.exist?("./tmp/zoi/sample.md"))
   end
 
   def test_open_without_editor_env
-    Zoi::CLI.start(['open', 'sample.md'])
+    Zoi::CLI.start(["open", "sample.md"])
 
-    assert_equal false, File.exist?('./tmp/zoi/sample.md')
+    assert_equal(false, File.exist?("./tmp/zoi/sample.md"))
   end
 
   def test_list
-    file_paths = %w[ruby/foo.rb python/bar.py memo.adoc]
+    file_paths = ["ruby/foo.rb", "python/bar.py", "memo.adoc"]
 
     file_paths.each do |file_path|
-      Zoi::CLI.start(['create', file_path])
+      Zoi::CLI.start(["create", file_path])
     end
 
-    output_path = @tmp_path.join('output.txt')
-    $stdout = File.open(output_path, 'w')
+    output_path = @tmp_path.join("output.txt")
+    $stdout = File.open(output_path, "w")
 
-    Zoi::CLI.start(['list'])
+    Zoi::CLI.start(["list"])
 
     $stdout.flush
     $stdout = STDOUT
 
-    files_list = File.open(output_path, 'r', &:read).split("\n")
+    files_list = File.open(output_path, "r", &:read).split("\n")
 
-    assert_equal file_paths.map { |file_path| "#{Zoi::CLI.new.root_path}/#{file_path}" }.sort, files_list.sort
+    assert_equal(file_paths.map { |file_path| "#{Zoi::CLI.new.root_path}/#{file_path}" }.sort, files_list.sort)
   end
 
   def test_memo
-    Timecop.freeze(Date.parse('2021-09-09')) do
-      ENV['EDITOR'] = ':'
-      Zoi::CLI.start(['memo'])
+    Timecop.freeze(Date.parse("2021-09-09")) do
+      ENV["EDITOR"] = ":"
+      Zoi::CLI.start(["memo"])
 
-      assert_equal true, File.exist?('./tmp/zoi/2021-09-09.md')
+      assert_equal(true, File.exist?("./tmp/zoi/2021-09-09.md"))
     end
   end
 
   def test_root
     assert_output("#{@root_path}\n") do
-      Zoi::CLI.start(['root'])
+      Zoi::CLI.start(["root"])
     end
   end
 end
