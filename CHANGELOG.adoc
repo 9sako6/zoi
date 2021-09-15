@@ -1,4 +1,4 @@
-== 0.1.1 (September 11, 2021)
+== 0.1.2 (September 11, 2021)
 
 === Enhancements
 * Add `root` command https://github.com/9sako6/zoi/pull/8[#8]
