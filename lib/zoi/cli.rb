@@ -1,24 +1,27 @@
 # frozen_string_literal: true
 
-require 'date'
-require 'fileutils'
-require 'find'
-require 'open3'
-require 'pathname'
-require 'thor'
+require "date"
+require "fileutils"
+require "find"
+require "open3"
+require "pathname"
+require "thor"
 
 module Zoi
-  ROOT_DIR_NAME = 'zoi'
+  ROOT_DIR_NAME = "zoi"
 
   class CLI < Thor
-    desc 'create <filepath>', 'Create a new file under zoi root directory.'
+    desc "create <filepath>", "Create a new file under zoi root directory."
     def create(file_path)
       return if file_path.nil?
 
       puts create_file(file_path)
     end
 
-    desc 'open <filepath>', 'Execute `create` command and open the file with the editor specified by $EDITOR. For example: `EDITOR=code zoi open foobar.rb`'
+    desc "open <filepath>", <<~DESCRIPTION
+      Execute `create` command and open the file with the editor specified by $EDITOR.
+      For example: `EDITOR=code zoi open foobar.rb`
+    DESCRIPTION
     def open(file_path)
       return if editor.nil? || file_path.nil?
 
@@ -29,15 +32,15 @@ module Zoi
       open_file(created_file_path)
     end
 
-    desc 'list [-d]', 'List all files under zoi root directory.'
-    option 'd', type: :boolean
+    desc "list [-d]", "List all files under zoi root directory."
+    option "d", type: :boolean
     def list
-      only_directory = options['d']
+      only_directory = options["d"]
 
       puts(Find.find(root_path).select { |path| only_directory ? File.directory?(path) : File.file?(path) })
     end
 
-    desc 'memo', "Create today's memo file and open the file with the editor specified by `$EDITOR`."
+    desc "memo", "Create today's memo file and open the file with the editor specified by `$EDITOR`."
     def memo
       return if editor.nil?
 
@@ -48,18 +51,18 @@ module Zoi
       open_file(created_file_path)
     end
 
-    desc 'root', 'Print zoi root directory.'
+    desc "root", "Print zoi root directory."
     def root_command
       puts root_path
     end
 
     # NOTE: Resolve the following error.
     #       `"root" is a Thor reserved word and cannot be defined as command`
-    map 'root' => 'root_command'
+    map "root" => "root_command"
 
     no_tasks do
       def editor
-        ENV['EDITOR']
+        ENV["EDITOR"]
       end
 
       def create_file(file_path)

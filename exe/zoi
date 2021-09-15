@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'zoi'
+require "zoi"
 
-args = File.pipe?(STDIN) ? ARGV + STDIN.gets.chomp.split : ARGV
+args = File.pipe?($stdin) ? ARGV + $stdin.gets.chomp.split : ARGV
 
 Zoi::CLI.start(args)
