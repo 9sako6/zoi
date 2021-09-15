@@ -41,7 +41,7 @@ memo::
   Create today's memo file and open the file with the editor specified by `$EDITOR`. +
   The file name is `YYYY-MM-DD.md` +
   For example: `EDITOR=code zoi open memo/20210101.md` +
-  If it's September 9th in 2021, a new file ~/zoi/2021-09-09.md is created and is opend in VSCode.
+  If it's September 9th in 2021, a new file ~/zoi/2021-09-09.md is created and is opend with the VSCode editor.
 
 root::
   Print zoi root directory.
