@@ -11,12 +11,18 @@ require_relative "../lib/zoi"
 class TestZoi < MiniTest::Unit::TestCase
   def setup
     @tmp_path = Pathname("./tmp")
-
     FileUtils.mkdir_p(@tmp_path)
 
+    # Create a stub of the root path.
     @root_path = Pathname(Dir.pwd).join(@tmp_path).join(Zoi::ROOT_DIR_NAME).to_s
-
     Zoi::CLI.any_instance.stubs(:root_path).returns(@root_path)
+
+    # Create a empty config JSON file.
+    @config_file_path = File.join(Dir.pwd, @tmp_path, Zoi::CONFIG_FILE_NAME)
+    Zoi::CLI.any_instance.stubs(:config_file_path).returns(@config_file_path)
+    File.open(@config_file_path, "w") do |f|
+      f.puts(JSON.unparse({}))
+    end
 
     $stdout = File.open("/dev/null", "w")
 
@@ -39,8 +45,19 @@ class TestZoi < MiniTest::Unit::TestCase
     assert_equal(true, File.exist?("./tmp/zoi/ruby/foo.rb"))
   end
 
-  def test_open
+  def test_open_with_editor_env
     ENV["EDITOR"] = ":"
+    Zoi::CLI.start(["open", "sample.md"])
+
+    assert_equal(true, File.exist?("./tmp/zoi/sample.md"))
+  end
+
+  def test_open_with_editor_env_from_config_file
+    # Create a config JSON file.
+    File.open(@config_file_path, "w") do |f|
+      f.puts(JSON.unparse({ editor: ":" }))
+    end
+
     Zoi::CLI.start(["open", "sample.md"])
 
     assert_equal(true, File.exist?("./tmp/zoi/sample.md"))
