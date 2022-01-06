@@ -1,3 +1,20 @@
+== 0.1.4 (January 6, 2022)
+
+=== Enhancements
+* Add a configuration file, __~/.zoirc.json__ https://github.com/9sako6/zoi/pull/17[#17]
+** You can optionally save the settings used by zoi to a configuration file, __~/.zoirc.json__. +
+The type of editor used by zoi can be specified in the __~/.zoirc.json__ file. +
+The following is the example of the __~/.zoirc.json__ file.
++
+[source,json]
+----
+{
+  "editor": "code"
+}
+----
++
+In that case, there is no need to pass the `EDITOR` environment variable at runtime.
+
 == 0.1.3 (September 15, 2021)
 
 === Enhancements
