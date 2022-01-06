@@ -53,6 +53,23 @@ help::
 
     gem install zoi
 
+== CONFIGURATION
+
+You can optionally save the settings used by zoi to a configuration file, __~/.zoirc.json__.
+
+The type of editor used by zoi can be specified in the __~/.zoirc.json__ file.
+
+The following is the example of the __~/.zoirc.json__ file.
+
+[source,json]
+----
+{
+  "editor": "code"
+}
+----
+
+In that case, there is no need to pass the `EDITOR` environment variable at runtime.
+
 == EXAMPLES
 
 * Change directories

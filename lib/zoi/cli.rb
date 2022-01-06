@@ -3,12 +3,14 @@
 require "date"
 require "fileutils"
 require "find"
+require "json"
 require "open3"
 require "pathname"
 require "thor"
 
 module Zoi
   ROOT_DIR_NAME = "zoi"
+  CONFIG_FILE_NAME = ".zoirc.json"
 
   class CLI < Thor
     desc "create <filepath>", "Create a new file under zoi root directory."
@@ -62,6 +64,10 @@ module Zoi
 
     no_tasks do
       def editor
+        if File.exist?(config_file_path)
+          load_envs_from_config_file
+        end
+
         ENV["EDITOR"]
       end
 
@@ -83,6 +89,18 @@ module Zoi
 
       def root_path
         @root_path ||= Pathname(Dir.home).join(ROOT_DIR_NAME).to_s
+      end
+
+      def config_file_path
+        @config_file_path ||= Pathname(Dir.home).join(CONFIG_FILE_NAME).to_s
+      end
+
+      def config_json
+        @config_json ||= JSON.parse(File.open(config_file_path, "r", &:read))
+      end
+
+      def load_envs_from_config_file
+        ENV["EDITOR"] = config_json["editor"] unless ENV["EDITOR"]
       end
     end
   end
