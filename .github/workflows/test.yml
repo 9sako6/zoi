@@ -18,6 +18,6 @@ jobs:
       - name: Install dependencies
         run: bundle install
       - name: RuboCop
-        run: bundle exec rubocop
+        run: rake rubocop
       - name: Run tests
-        run: ruby test/*.rb
+        run: rake test
