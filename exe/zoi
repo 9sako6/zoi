@@ -5,4 +5,6 @@ require "zoi"
 
 args = File.pipe?($stdin) ? ARGV + $stdin.gets.chomp.split : ARGV
 
+ENV["THOR_SILENCE_DEPRECATION"] = "true"
+
 Zoi::CLI.start(args)
