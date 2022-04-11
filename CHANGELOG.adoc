@@ -1,3 +1,8 @@
+== 0.1.5 (April 12, 2022)
+
+=== Enhancements
+* Add `version` command
+
 == 0.1.4 (January 6, 2022)
 
 === Enhancements
