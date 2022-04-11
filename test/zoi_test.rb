@@ -37,6 +37,10 @@ class TestZoi < MiniTest::Unit::TestCase
 
   def test_version
     assert_equal(false, Zoi::VERSION.nil?)
+
+    assert_output("#{Zoi::VERSION}\n") do
+      Zoi::CLI.start(["version"])
+    end
   end
 
   def test_create

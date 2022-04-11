@@ -13,6 +13,11 @@ module Zoi
   CONFIG_FILE_NAME = ".zoirc.json"
 
   class CLI < Thor
+    desc "version", "Show version."
+    def version
+      puts Zoi::VERSION
+    end
+
     desc "create <filepath>", "Create a new file under zoi root directory."
     def create(file_path)
       return if file_path.nil?
