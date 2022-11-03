@@ -7,7 +7,7 @@ require "rubocop/rake_task"
 task default: [:"rubocop:auto_correct", :test]
 
 Rake::TestTask.new do |test|
-  test.test_files = FileList["./test/*.rb"]
+  test.test_files = FileList["./test/*_test.rb"]
   # Display detail information.
   test.verbose = true
 end

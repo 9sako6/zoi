@@ -3,7 +3,7 @@
 
 require "zoi"
 
-args = File.pipe?($stdin) ? ARGV + ($stdin.gets || '').to_s.chomp.split : ARGV
+args = File.pipe?($stdin) ? ARGV + ($stdin.gets || "").to_s.chomp.split : ARGV
 
 ENV["THOR_SILENCE_DEPRECATION"] = "true"
 
