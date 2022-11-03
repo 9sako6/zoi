@@ -19,5 +19,5 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
       - name: Install and run
         run: |
-          gem install zoi
+          gem install zoi -v 0.1.6
           zoi version
