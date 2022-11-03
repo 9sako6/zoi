@@ -1,0 +1,23 @@
+name: Install
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        ruby: [3.0]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install and run
+        run: |
+          gem install zoi
+          zoi version
