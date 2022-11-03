@@ -1,6 +1,8 @@
 == 0.1.6 (November 3, 2022)
 
-* Fix #22
+=== Bug Fixes
+
+* Fix https://github.com/9sako6/zoi/issues/22[#22]
 
 == 0.1.5 (April 12, 2022)
 
